@@ -1,8 +1,8 @@
 ﻿using PathFindingAI;
+using PathFindingAI.SettingsHandling;
 using Raylib_cs;
 
-var appSettings = new AppSettings(width: 800, height: 800, cellSizeLength: 20, margin: 40);
-
+var appSettings = SettingsLoader.Load();
 Raylib.InitWindow(appSettings.Width, appSettings.Height, "Path-Finding");
 
 var board = new Board(appSettings);
