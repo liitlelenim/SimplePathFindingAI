@@ -1,17 +1,18 @@
 ﻿using System.Numerics;
-
 namespace PathFindingAI
 {
     internal class PathFinder
     {
-        private Board _board;
-
-        public PathFinder(Board board)
+        private readonly Board _board;
+        private readonly Visualizer _visualizer;
+        public PathFinder(Board board, Visualizer visualizer)
         {
             _board = board;
+            _visualizer = visualizer;
         }
-        public List<Vector2> AStarSearch()
+        public List<Vector2>? AStarSearch()
         {
+            _visualizer.Clear();
             BoardNode? startPoint = null, endPoint = null;
             BoardNode[] nodes =
                 new BoardNode[(_board.Cells.GetLength(0)) * _board.Cells.GetLength(1)];
@@ -39,6 +40,16 @@ namespace PathFindingAI
             List<BoardNode> closedNodes = new List<BoardNode>();
             while (openNodes.Count > 0)
             {
+
+                _visualizer.OpenNodesPositons = openNodes.Select(node => node.Position).ToList();
+                _visualizer.ClosedNodesPositons = closedNodes.Select(node => node.Position).ToList();
+                _visualizer.OpenNodesPositons.Remove(startPoint.Position);
+                _visualizer.ClosedNodesPositons.Remove(startPoint.Position);
+
+                if (_visualizer.Enabled)
+                {
+                    Drawer.DrawCall();
+                }
                 BoardNode leastFNode = openNodes[0];
                 foreach (var node in openNodes)
                 {
