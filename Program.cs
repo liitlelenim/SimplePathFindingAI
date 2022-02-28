@@ -1,12 +1,12 @@
 ﻿using PathFindingAI;
 using Raylib_cs;
 
-int windowWidth = 800;
-int windowHeight = 800;
-Raylib.InitWindow(windowWidth, windowHeight, "Path-Finding");
+var appSettings = new AppSettings(width: 800, height: 800, cellSizeLength: 40, margin: 40);
+
+Raylib.InitWindow(appSettings.Width, appSettings.Height, "Path-Finding");
 Raylib.SetTargetFPS(60);
 
-var board = new Board(windowWidth, windowHeight, 40, 40);
+var board = new Board(appSettings);
 var inputHandler = new InputHandler(board);
 
 while (!Raylib.WindowShouldClose())

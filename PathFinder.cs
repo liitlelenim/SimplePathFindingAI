@@ -129,7 +129,7 @@ namespace PathFindingAI
     {
         public Vector2 Position { get; init; }
         public bool Traversable { get; init; }
-        public BoardNode Parent { get; set; }
+        public BoardNode? Parent { get; set; }
 
         private int _gValueMemo = -1;
         public int DistanceTo(Vector2 position)

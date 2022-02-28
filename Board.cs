@@ -5,29 +5,28 @@ namespace PathFindingAI
 {
     internal class Board
     {
-        public int Width { get; init; }
-        public int Height { get; init; }
+        private int width;
+        private int height;
         private int cellSizeLength;
         private int margin;
         public CellType[,] Cells { get; private set; }
-        public List<Vector2> Path { get; set; } = null;
-        public Board(int width, int height, int cellSizeLength, int margin)
+        public List<Vector2>? Path { get; set; } = null;
+        public Board(AppSettings settings)
         {
-            Width = width;
-            Height = height;
-            this.cellSizeLength = cellSizeLength;
-            this.margin = margin;
+            width = settings.Width;
+            height = settings.Height;
+            cellSizeLength = settings.CellSizeLength;
+            margin = settings.Margin;
+
             Cells = new CellType[((width - margin * 2) / cellSizeLength), ((height - margin * 2) / cellSizeLength)];
             Cells[0, 0] = CellType.StartPoint;
             Cells[5, 3] = CellType.Target;
-
-
         }
         public void Draw()
         {
-            for (int x = margin; x < Width - margin; x += cellSizeLength)
+            for (int x = margin; x < width - margin; x += cellSizeLength)
             {
-                for (int y = margin; y < Height - margin; y += cellSizeLength)
+                for (int y = margin; y < height - margin; y += cellSizeLength)
                 {
                     Raylib.DrawRectangleLines(x, y, cellSizeLength, cellSizeLength, Color.BLACK);
                 }
